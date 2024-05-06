@@ -1,30 +1,108 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            clifford: '#da373d',
-          }
-        }
-      }
-    }
-  </script>
-</head>
-<body>
-  <main class="w-full h-screen bg-black flex items-center justify-center ">
-    <section class="flex-col w-[60%] bg-blue-400 h-[60%] items-center justify-center">
-      <input type="file" name="" id="">
-      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-        ANALIZAR
-      </button>
-    </section>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de Archivos</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
-  </main>
+        html {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .symbol {
+            font-weight: bold;
+            color: #f0e130;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center bg-black min-h-screen">
+    <main class="w-full flex flex-col h-auto gap-5 bg-black flex items-center justify-center">
+        <section class="flex flex-col w-full md:w-2/3 lg:w-1/2 bg-blue-400 items-center justify-center space-y-6 p-8 rounded-2xl shadow-2xl">
+            <h1 class="text-3xl text-white font-extrabold">Inserte su Código y Analice</h1>
+            <input type="file" id="fileInput" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="analyzeFile" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out">
+                Analizar Archivo
+            </button>
+            <textarea id="data" name="codigo" cols="30" rows="5" class="w-full h-auto p-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500" placeholder="Inserte su código aquí"></textarea>
+            <button id="analyzeCode" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out">
+                Analizar Código
+            </button>
+        </section>
+
+        <section class="flex flex-wrap w-full h-screen md:w-4/5 lg:w-2/3 gap-4 bg-blue-400 p-8 rounded-2xl shadow-2xl">
+            <aside class="flex-1 min-w-[280px] h-full bg-gray-700 p-4 rounded-xl shadow-lg">
+                <h2 class="text-xl font-bold text-white mb-4">Casos</h2>
+                <pre id="casos" class="text-white whitespace-pre-wrap"></pre>
+            </aside>
+            <aside class="flex-1 min-w-[280px] h-full bg-gray-700 p-4 rounded-xl shadow-lg">
+                <h2 class="text-xl font-bold text-white mb-4">Resultado Léxico</h2>
+                <pre id="lexicoOutput" class="text-white whitespace-pre-wrap"></pre>
+            </aside>
+        </section>
+    </main>
+
+    <script>
+        const tokens = [
+            { name: 'Reservada For', symbol: 'for' },
+            { name: 'Reservada Do', symbol: 'do' },
+            { name: 'Reservada While', symbol: 'while' },
+            { name: 'Reservada If', symbol: 'if' },
+            { name: 'Reservada Else', symbol: 'else' },
+            { name: 'Parentesis de apertura', symbol: '(' },
+            { name: 'Parentesis de cierre', symbol: ')' },
+        ];
+
+        const analyzeCode = (code) => {
+            let lexResults = '';
+            let casesOutput = '';
+
+            const lines = code.split('\n');
+            let lineCounter = 1;
+
+            for (const line of lines) {
+                const words = line.split(/\s+/);
+
+                for (const word of words) {
+                    const token = tokens.find((token) => token.symbol === word);
+                    if (token) {
+                        lexResults += `LINEA ${lineCounter} <${token.name}> ${token.symbol}\n`;
+                        casesOutput += `${word}\n`;
+                    }
+                }
+                lineCounter++;
+            }
+
+            return { lexResults, casesOutput };
+        };
+
+        document.getElementById('analyzeCode').addEventListener('click', () => {
+            const code = document.getElementById('data').value;
+            const { lexResults, casesOutput } = analyzeCode(code);
+            document.getElementById('casos').innerText = casesOutput.trim();
+            document.getElementById('lexicoOutput').innerText = lexResults.trim();
+        });
+
+        document.getElementById('analyzeFile').addEventListener('click', () => {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const code = e.target.result;
+                    document.getElementById('data').value = code;
+                    const { lexResults, casesOutput } = analyzeCode(code);
+                    document.getElementById('casos').innerText = casesOutput.trim();
+                    document.getElementById('lexicoOutput').innerText = lexResults.trim();
+                };
+                reader.readAsText(file);
+            } else {
+                alert('Por favor, seleccione un archivo primero.');
+            }
+        });
+    </script>
 </body>
 </html>
