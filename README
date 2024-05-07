@@ -1,0 +1,8 @@
+
+venv\Scripts\activate
+
+cd "C:\Users\darin\Documents\8B\Realizar el siguiente Analizador Léxico en Flask con librería Ply"
+
+cd analyzer
+
+ python app.py

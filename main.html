@@ -22,7 +22,7 @@
     <main class="w-full flex flex-col h-auto gap-5 bg-black flex items-center justify-center">
         <section class="flex flex-col w-full md:w-2/3 lg:w-1/2 bg-blue-400 items-center justify-center space-y-6 p-8 rounded-2xl shadow-2xl">
             <h1 class="text-3xl text-white font-extrabold">Inserte su Código y Analice</h1>
-            <input type="file" id="fileInput" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="file" id="fileInput" accept=".txt" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
             <button id="analyzeFile" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out">
                 Analizar Archivo
             </button>
@@ -89,7 +89,7 @@
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
 
-            if (file) {
+            if (file && file.type === 'text/plain') {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const code = e.target.result;
@@ -100,7 +100,7 @@
                 };
                 reader.readAsText(file);
             } else {
-                alert('Por favor, seleccione un archivo primero.');
+                alert('Por favor, seleccione un archivo .txt.');
             }
         });
     </script>
