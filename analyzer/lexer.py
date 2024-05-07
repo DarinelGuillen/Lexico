@@ -1,4 +1,3 @@
-# analyzer/lexer.py
 import ply.lex as lex
 
 # Lista de tokens a reconocer
