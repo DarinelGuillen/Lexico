@@ -2,7 +2,7 @@ import ply.lex as lex
 
 # Lista de tokens
 tokens = [
-    'PRP', 'PRJ', 'PRC', 'ID', 'CAD', 'PI', 'PD', 'LI', 'LD', 'PC', 'EX'
+    'PR', 'PRJ', 'PRC', 'ID', 'CAD', 'PI', 'PD', 'LI', 'LD', 'PC', 'EX'
 ]
 
 # Palabras reservadas por lenguaje
@@ -11,33 +11,19 @@ reserved_python = {
     'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global',
     'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise',
     'return', 'try', 'while', 'yield', 'print', 'program', 'match', 'case', 'with',
-    'type', 'dir', 'len', 'repr', 'eval', 'exec'
+    'type', 'dir', 'len', 'repr', 'eval', 'exec', 'print', 'else'
 }
-
 
 reserved_javascript = {
-    'break', 'case', 'catch', 'class', 'const', 'continue', 'debugger', 'default', 'delete', 'do',
-    'else', 'export', 'extends', 'finally', 'for', 'function', 'if', 'import', 'in', 'instanceof',
-    'new', 'return', 'super', 'switch', 'this', 'throw', 'try', 'typeof', 'var', 'while',
-    'let', 'yield', 'consolelog', 'async', 'await', 'null', 'true', 'false', 'NaN', 'undefined',
-    'Infinity'
+    'break'
 }
-
 
 reserved_csharp = {
-    'abstract', 'System', 'as', 'base', 'bool', 'break', 'byte', 'case', 'catch', 'char', 'class',
-    'const', 'continue', 'decimal', 'default', 'delegate', 'do', 'double', 'else', 'enum', 'event',
-    'explicit', 'extern', 'false', 'finally', 'fixed', 'float', 'for', 'foreach', 'goto', 'if',
-    'in', 'int', 'lock', 'long', 'namespace', 'new', 'null', 'object', 'operator', 'out',
-    'override', 'params', 'private', 'protected', 'public', 'readonly', 'ref', 'return', 'sbyte', 'sealed',
-    'sizeof', 'stackalloc', 'static', 'string', 'struct', 'switch', 'this', 'throw', 'true', 'try',
-    'typeof', 'uint', 'ulong', 'unchecked', 'unsafe', 'ushort', 'using', 'virtual', 'void', 'volatile',
-    'while', 'ConsoleWriteLine', 'async', 'await', 'dynamic', 'yield', 'add', 'remove', 'get', 'set'
+    'abstract'
 }
 
-
 # Asignar el tipo de token PR correcto a cada palabra reservada
-reserved = {word: 'PRP' for word in reserved_python}
+reserved = {word: 'PR' for word in reserved_python}
 reserved.update({word: 'PRJ' for word in reserved_javascript})
 reserved.update({word: 'PRC' for word in reserved_csharp})
 
