@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+  <div class="mx-auto p-5 container">
+      <div class="flex flex-row gap-x-5 m-4">
+        <section class="w-1/2">
+
+          <h1 class="mb-4 font-bold text-4xl text-center text-white underline">Análisis Léxico</h1>
+          <form method="POST" action="/" class="bg-gray-800 shadow p-4 rounded-lg">
+            <textarea name="code" class="border-0 bg-gray-700 p-3 rounded w-full text-white" rows="5" placeholder="Inserte el código aquí..."></textarea>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-800 mt-4 px-4 py-2 rounded font-bold text-white transition duration-200 ease-in-out">
+          Analizar
+        </button>
+      </form>
+    </section>
+    {% if token_count %}
+    <div class="mt-6">
+      <h2 class="font-semibold text-2xl">Resumen de Tokens</h2>
+      <table class="bg-gray-800 shadow-md mt-2 rounded-lg min-w-full overflow-hidden table-auto">
+        <thead class="bg-gray-700 text-white">
+          <tr>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">Token</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">PRP (Python)</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">PRJ (JavaScript)</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">PRC (C#)</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">ID</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">CAD</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">EX</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">PI</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">PD</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">LI</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">LD</th>
+            <th class="px-4 py-3 font-semibold text-sm uppercase">PC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-gray-300">
+            <td class="px-4 py-3">RESULTADOS</td>
+            <td class="px-4 py-3">{{ token_count.PRP }}</td>
+            <td class="px-4 py-3">{{ token_count.PRJ }}</td>
+            <td class="px-4 py-3">{{ token_count.PRC }}</td>
+            <td class="px-4 py-3">{{ token_count.ID }}</td>
+            <td class="px-4 py-3">{{ token_count.CAD }}</td>
+            <td class="px-4 py-3">{{ token_count.EX }}</td>
+            <td class="px-4 py-3">{{ token_count.PI }}</td>
+            <td class="px-4 py-3">{{ token_count.PD }}</td>
+            <td class="px-4 py-3">{{ token_count.LI }}</td>
+            <td class="px-4 py-3">{{ token_count.LD }}</td>
+            <td class="px-4 py-3">{{ token_count.PC }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+{% endif %}
+
+
+
+  </div>
+  {% if result %}
+  <div class="mt-6">
+    <table class="bg-gray-800 shadow-md mt-2 rounded-lg min-w-full overflow-hidden table-auto">
+      <thead class="bg-gray-700 text-white">
+        <tr>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">Token</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">PRP</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">PRJ</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">PRC</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">ID</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">CAD</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">EX</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">PI</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">PD</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">LI</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">LD</th>
+          <th class="px-4 py-3 font-semibold text-sm uppercase">PC</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tok in result %}
+        <tr class="text-gray-300">
+          <td class="px-4 py-3">{{ tok.value }}</td>
+          <td class="px-4 py-3">{{ 'X PRD' if tok.type == 'PRP' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X PRJ' if tok.type == 'PRJ' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X PRC' if tok.type == 'PRC' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X ID' if tok.type == 'ID' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X CAD' if tok.type == 'CAD' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X EX' if tok.type == 'EX' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X PI' if tok.type == 'PI' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X PD' if tok.type == 'PD' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X LI' if tok.type == 'LI' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X LD' if tok.type == 'LD' else '' }}</td>
+          <td class="px-4 py-3">{{ 'X PC' if tok.type == 'PC' else '' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+
+venv\Scripts\activate
+
+cd "C:\Users\darin\Documents\8B\Act. 1.2  Realizar el analizador léxico weben python\Analyzer"
+
+
+ python app.py
