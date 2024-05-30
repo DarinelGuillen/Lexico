@@ -25,6 +25,12 @@ def index():
             syntax_result = "Estructura FOR correcta"
         elif parser.check_if_else_structure(code):
             syntax_result = "Estructura IF-ELSE correcta"
+        elif parser.check_while_structure(code):
+            syntax_result = "Estructura WHILE correcta"
+        elif parser.check_function_structure(code):
+            syntax_result = "Estructura FUNCIÓN correcta"
+        elif parser.check_class_structure(code):
+            syntax_result = "Estructura CLASE correcta"
 
         return render_template('main.html', result=result, token_count=token_count, syntax_result=syntax_result)
 
