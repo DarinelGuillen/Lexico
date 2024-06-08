@@ -32,7 +32,7 @@
           <thead class="bg-gray-700 text-white">
             <tr>
               <th class="px-4 py-3 font-semibold text-sm uppercase">Token</th>
-              <th class="px-4 py-3 font-semibold text-sm uppercase">PR (Python)</th>
+              <th class="px-4 py-3 font-semibold text-sm uppercase">PRG</th>
               <th class="px-4 py-3 font-semibold text-sm uppercase">ID</th>
               <th class="px-4 py-3 font-semibold text-sm uppercase">CAD</th>
               <th class="px-4 py-3 font-semibold text-sm uppercase">EX</th>
@@ -46,7 +46,7 @@
           <tbody>
             <tr class="text-gray-300">
               <td class="px-4 py-3">RESULTADOS</td>
-              <td class="px-4 py-3">{{ token_count.PR }}</td>
+              <td class="px-4 py-3">{{ token_count.PRG }}</td>
               <td class="px-4 py-3">{{ token_count.ID }}</td>
               <td class="px-4 py-3">{{ token_count.CAD }}</td>
               <td class="px-4 py-3">{{ token_count.EX }}</td>
@@ -68,7 +68,7 @@
           <thead class="bg-gray-700 text-white">
             <tr>
               <th class="px-4 py-3 font-semibold text-sm uppercase">Token</th>
-              <th class="px-4 py-3 font-semibold text-sm uppercase">PR</th>
+              <th class="px-4 py-3 font-semibold text-sm uppercase">PRG</th>
               <th class="px-4 py-3 font-semibold text-sm uppercase">ID</th>
               <th class="px-4 py-3 font-semibold text-sm uppercase">CAD</th>
               <th class="px-4 py-3 font-semibold text-sm uppercase">EX</th>
@@ -83,7 +83,7 @@
             {% for tok in result %}
             <tr class="text-gray-300">
               <td class="px-4 py-3">{{ tok.value }}</td>
-              <td class="px-4 py-3">{{ 'X PRD' if tok.type == 'PR' else '' }}</td>
+              <td class="px-4 py-3">{{ 'X PRG' if tok.type == 'PRG' else '' }}</td>
               <td class="px-4 py-3">{{ 'X ID' if tok.type == 'ID' else '' }}</td>
               <td class="px-4 py-3">{{ 'X CAD' if tok.type == 'CAD' else '' }}</td>
               <td class="px-4 py-3">{{ 'X EX' if tok.type == 'EX' else '' }}</td>

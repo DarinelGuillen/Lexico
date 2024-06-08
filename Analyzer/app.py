@@ -10,7 +10,7 @@ def index():
         code = request.form['code']
         lexer.lexer.input(code)
         result = []
-        token_count = {'PR': 0, 'PRJ': 0, 'PRC': 0, 'ID': 0, 'CAD': 0, 'EX': 0, 'PI': 0, 'PD': 0, 'LI': 0, 'LD': 0, 'PC': 0}
+        token_count = {'PR': 0, 'PRJ': 0, 'PRC': 0, 'PRG': 0, 'ID': 0, 'CAD': 0, 'EX': 0, 'PI': 0, 'PD': 0, 'LI': 0, 'LD': 0, 'PC': 0}
 
         while True:
             tok = lexer.lexer.token()
@@ -21,16 +21,10 @@ def index():
                 token_count[tok.type] += 1
 
         syntax_result = "Estructura incorrecta"
-        if parser.check_for_structure(code):
-            syntax_result = "Estructura FOR correcta"
-        elif parser.check_if_else_structure(code):
-            syntax_result = "Estructura IF-ELSE correcta"
-        elif parser.check_while_structure(code):
-            syntax_result = "Estructura WHILE correcta"
-        elif parser.check_function_structure(code):
-            syntax_result = "Estructura FUNCIÓN correcta"
-        elif parser.check_class_structure(code):
-            syntax_result = "Estructura CLASE correcta"
+        if parser.check_go_code_structure(code):
+            syntax_result = "Estructura GO correcta"
+        else:
+            syntax_result = "Estructura incorrecta"
 
         return render_template('main.html', result=result, token_count=token_count, syntax_result=syntax_result)
 

@@ -2,7 +2,7 @@ import ply.lex as lex
 
 # Lista de tokens
 tokens = [
-    'PR', 'PRJ', 'PRC', 'ID', 'CAD', 'PI', 'PD', 'LI', 'LD', 'PC', 'EX'
+    'PR', 'PRJ', 'PRC', 'PRG', 'ID', 'CAD', 'PI', 'PD', 'LI', 'LD', 'PC', 'EX', 'GO_COMMENT'
 ]
 
 # Palabras reservadas por lenguaje
@@ -22,10 +22,16 @@ reserved_csharp = {
     'abstract'
 }
 
+reserved_go = {
+    'break','fmtPrintln', 'default', 'func', 'interface', 'select', 'case', 'defer', 'go', 'map', 'struct', 'chan', 'else', 'goto',
+    'package', 'switch', 'const', 'fallthrough', 'if', 'range', 'type', 'continue', 'for', 'import', 'return', 'var'
+}
+
 # Asignar el tipo de token PR correcto a cada palabra reservada
 reserved = {word: 'PR' for word in reserved_python}
 reserved.update({word: 'PRJ' for word in reserved_javascript})
 reserved.update({word: 'PRC' for word in reserved_csharp})
+reserved.update({word: 'PRG' for word in reserved_go})
 
 # Actualización de la lista de tokens con las palabras reservadas
 tokens = list(set(tokens + list(reserved.values())))
@@ -37,6 +43,7 @@ t_PD  = r'\)'
 t_LI  = r'\{'
 t_LD  = r'\}'
 t_PC  = r'\;'
+t_GO_COMMENT = r'//.*'
 
 # Función para identificadores
 def t_ID(t):
